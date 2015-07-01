@@ -50,13 +50,13 @@
 					</p>
 				</section>
 
-				<section>
-				  <div class="container">
-				      <img style="vertical-align:middle; max-width: 20%; margin:2%;" src="img/bm.jpg" alt="">
-				      <img class="fragment" style="vertical-align:middle; max-width: 22%; margin:-10px 2% 0;" src="img/sassydc-logo.svg" alt="">
-				      <img class="fragment" style="vertical-align:middle; max-width: 22%; margin:2%" src="img/atxsass-logo.png" alt="">
-				      <img class="fragment" style="vertical-align:middle; max-width: 17%; margin:2%" src="img/designopen.png" alt="">
-				    </div>
+					<section class="text-center">
+						<h1 class="center">@una <img class="fragment" style="display: inline; width: 2em; margin: -.25em 0 0 -.5em; z-index: -1; position: relative; vertical-align: middle;" src="img/unicornemoji.jpg" alt=""></h1>
+						<img class="fragment" style="vertical-align:middle; max-width: 20%; margin:2%;" src="img/bm.jpg" alt="">
+					  <img class="fragment" style="vertical-align:middle; max-width: 22%; margin:-10px 2% 0;" src="img/sassydc-logo.svg" alt="">
+					  <img class="fragment" style="vertical-align:middle; max-width: 22%; margin:2%" src="img/atxsass-logo.png" alt="">
+					  <img class="fragment" style="vertical-align:middle; max-width: 18%; margin:2%" src="img/designopen.png" alt="">
+					</section>
 				</section>
 
 				<!-- Compass Contrasted -->
@@ -83,30 +83,297 @@
 					</section>
 
 					<section>
-						-- speed image of libsass speed over ruby sass --
+						<img src="img/speedracer.png" alt="">
 						<aside class="notes">
 							Why Libsass > Ruby Sass
 						</aside>
 					</section>
 
 					<section>
-						-- codepen link of the pen i did with contrasted
-						--> IF WIFI, serve this embed, IF NO WIFI, here's an image <-- is that possible?
+						<p data-height="517" data-theme-id="5255" data-slug-hash="oXgRYz" data-default-tab="result" data-user="unax3" class='codepen'>See the Pen <a href='http://codepen.io/unax3/pen/oXgRYz/'>Contrasted()</a> by Una Kravets (<a href='http://codepen.io/unax3'>@unax3</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
 						<aside class="notes"></aside>
 					</section>
 
 					<section>
-					<h1>Recreating contrasted()</h1>
-						<aside class="notes">
+						<h1>Recreating contrasted()</h1>
+							<aside class="notes"> The first thing we can do is take a look at all of the functions Sass offers us for color
+							</aside>
+					</section>
 
+					<section>
+						<img src="img/color-rgb.png" height="650" width="1412" alt="">
+						<aside class="notes"></aside>
+					</section>
+
+					<section>
+						<img src="img/color-o.png" alt="">
+						<aside class="notes"></aside>
+					</section>
+
+					<section>
+						<img src="img/color-hsl.png" alt="">
+						<aside class="notes"></aside>
+					</section>
+
+					<section>
+						<img src="img/color-other.png" alt="">
+						<aside class="notes"></aside>
+					</section>
+
+					<section>
+            <h2>Color Math!</h2>
+            <hr>
+            <p>Input:</p>
+            <pre><code class="scss">p {
+  color: #010203 + #040506;
+}</code></pre>
+
+          <h3 class="fragment"> <code>01 + 04 = 05, 02 + 05 = 07, and 03 + 06 = 09</code></h3>
+          <div class="fragment">
+          <p>Computed Value:</p>
+          <pre><code class="scss">p {
+  color: #050709;
+}</code></pre></div>
+					<aside class="notes">
+						so how do all of those functions work? A little bit of Sass Math (explain how it works)
+					</aside>
+          </section>
+
+					<section>
+						<h2>Contrasted Mixin -- Settings</h2>
+							<pre><code>$contrast-settings: (
+  'light-color': #000,
+  'dark-color': #fff
+);</code></pre>
+
+							<aside class="notes">
+							<li>First we start with some settings -- like the color we'll use for the light text and dark text</li>
+							</aside>
+					</section>
+
+					<section>
+						<img src="img/jsonlist.png" alt="">
+						<a href="https://github.com/bahamas10/css-color-names/blob/master/css-color-names.json" class="cite">Color Reference</a>
+						<aside class="notes">
+							I needed a color sample, and i found a JSON object of all the named CSS colors (so many greys)
 						</aside>
+					</section>
+
+					<section>
+						<pre><code>$css-colors: (
+  'aqua': #00ffff,
+  'aliceblue': #f0f8ff,
+  'antiquewhite': #faebd7,
+  'black': #000000,
+  'blue': #0000ff,
+  'cyan': #00ffff,
+  'darkblue': #00008b,
+  'darkcyan': #008b8b,
+  'darkgreen': #006400,
+  'darkturquoise': #00ced1,
+  'deepskyblue': #00bfff,
+  'green': #008000,
+  'lime': #00ff00,
+  'mediumblue': #0000cd,
+  'mediumspringgreen': #00fa9a,
+  'navy': #000080,
+  'springgreen': #00ff7f,
+  'teal': #008080,
+  'midnightblue': #191970,
+  'dodgerblue': #1e90ff,
+  'lightseagreen': #20b2aa,
+  'forestgreen': #228b22,
+  'seagreen': #2e8b57,
+  'darkslategray': #2f4f4f,
+  'darkslategrey': #2f4f4f,
+  'limegreen': #32cd32,
+  'mediumseagreen': #3cb371,
+  'turquoise': #40e0d0,
+  'royalblue': #4169e1,
+  'steelblue': #4682b4,
+  'darkslateblue': #483d8b,
+  'mediumturquoise': #48d1cc,
+  'indigo': #4b0082,
+  'darkolivegreen': #556b2f,
+  'cadetblue': #5f9ea0,
+  'cornflowerblue': #6495ed,
+  'mediumaquamarine': #66cdaa,
+  'dimgray': #696969,
+  'dimgrey': #696969,
+  'slateblue': #6a5acd,
+  'olivedrab': #6b8e23,
+  'slategray': #708090,
+  'slategrey': #708090,
+  'lightslategray': #778899,
+  'lightslategrey': #778899,
+  'mediumslateblue': #7b68ee,
+  'lawngreen': #7cfc00,
+  'aquamarine': #7fffd4,
+  'chartreuse': #7fff00,
+  'gray': #808080,
+  'grey': #808080,
+  'maroon': #800000,
+  'olive': #808000,
+  'purple': #800080,
+  'lightskyblue': #87cefa,
+  'skyblue': #87ceeb,
+  'blueviolet': #8a2be2,
+  'darkmagenta': #8b008b,
+  'darkred': #8b0000,
+  'saddlebrown': #8b4513,
+  'darkseagreen': #8fbc8f,
+  'lightgreen': #90ee90,
+  'mediumpurple': #9370db,
+  'darkviolet': #9400d3,
+  'palegreen': #98fb98,
+  'darkorchid': #9932cc,
+  'yellowgreen': #9acd32,
+  'sienna': #a0522d,
+  'brown': #a52a2a,
+  'darkgray': #a9a9a9,
+  'darkgrey': #a9a9a9,
+  'greenyellow': #adff2f,
+  'lightblue': #add8e6,
+  'paleturquoise': #afeeee,
+  'lightsteelblue': #b0c4de,
+  'powderblue': #b0e0e6,
+  'firebrick': #b22222,
+  'darkgoldenrod': #b8860b,
+  'mediumorchid': #ba55d3,
+  'rosybrown': #bc8f8f,
+  'darkkhaki': #bdb76b,
+  'silver': #c0c0c0,
+  'mediumvioletred': #c71585,
+  'indianred': #cd5c5c,
+  'peru': #cd853f,
+  'chocolate': #d2691e,
+  'tan': #d2b48c,
+  'lightgray': #d3d3d3,
+  'lightgrey': #d3d3d3,
+  'thistle': #d8bfd8,
+  'goldenrod': #daa520,
+  'orchid': #da70d6,
+  'palevioletred': #db7093,
+  'crimson': #dc143c,
+  'gainsboro': #dcdcdc,
+  'plum': #dda0dd,
+  'burlywood': #deb887,
+  'lightcyan': #e0ffff,
+  'lavender': #e6e6fa,
+  'darksalmon': #e9967a,
+  'palegoldenrod': #eee8aa,
+  'violet': #ee82ee,
+  'azure': #f0ffff,
+  'honeydew': #f0fff0,
+  'khaki': #f0e68c,
+  'lightcoral': #f08080,
+  'sandybrown': #f4a460,
+  'beige': #f5f5dc,
+  'mintcream': #f5fffa,
+  'wheat': #f5deb3,
+  'whitesmoke': #f5f5f5,
+  'ghostwhite': #f8f8ff,
+  'lightgoldenrodyellow': #fafad2,
+  'linen': #faf0e6,
+  'salmon': #fa8072,
+  'oldlace': #fdf5e6,
+  'bisque': #ffe4c4,
+  'blanchedalmond': #ffebcd,
+  'coral': #ff7f50,
+  'cornsilk': #fff8dc,
+  'darkorange': #ff8c00,
+  'deeppink': #ff1493,
+  'floralwhite': #fffaf0,
+  'fuchsia': #ff00ff,
+  'gold': #ffd700,
+  'hotpink': #ff69b4,
+  'ivory': #fffff0,
+  'lavenderblush': #fff0f5,
+  'lemonchiffon': #fffacd,
+  'lightpink': #ffb6c1,
+  'lightsalmon': #ffa07a,
+  'lightyellow': #ffffe0,
+  'magenta': #ff00ff,
+  'mistyrose': #ffe4e1,
+  'moccasin': #ffe4b5,
+  'navajowhite': #ffdead,
+  'orange': #ffa500,
+  'orangered': #ff4500,
+  'papayawhip': #ffefd5,
+  'peachpuff': #ffdab9,
+  'pink': #ffc0cb,
+  'red': #ff0000,
+  'seashell': #fff5ee,
+  'snow': #fffafa,
+  'tomato': #ff6347,
+  'white': #ffffff,
+  'yellow': #ffff00,
+  'rebeccapurple': #663399
+);</code></pre>
+						<aside class="notes">
+							Here's that map
+						</aside>
+					</section>
+
+			<section>
+						<h2>Contrasted Mixin</h2>
+							<pre><code>@mixin contrast-me($bg-color) {
+  @if lightness($bg-color) < 60% {
+    color: map-get($contrast-settings, 'dark-color');
+  } @else {
+    color: map-get($contrast-settings, 'light-color');
+  }
+
+  background-color: $bg-color;
+}</code></pre>
+
+							<aside class="notes">
+								so we will take the map, read from it, and if the lightness() reading is < 60%, it gives the dark-background text color (aka white) and the light-background color (aka black) otherwise
+							</aside>
+					</section>
+
+					<section>
+						<img src="img/brightgreen.png" alt="">
+					</section>
+
+				<section>
+					<h2>Contrasted Mixin -- Settings</h2>
+						<pre><code>$contrast-settings: (
+  'light-color': #000,
+  'dark-color': #fff,
+  'light-ratio': 45% // add light-ratio to settings
+);</code></pre>
+					</section>
+
+					<section>
+						<h2>Contrasted Mixin</h2>
+							<pre><code>@mixin contrast-me($bg-color) {
+  @if lightness($bg-color) < map-get($contrast-settings, 'light-ratio') {
+    color: map-get($contrast-settings, 'dark-color');
+  } @else {
+    color: map-get($contrast-settings, 'light-color');
+  }
+
+  background-color: $bg-color;
+}</code></pre>
+
+							<aside class="notes">
+								to refactor this, go back to the function and grab the light-ratio value from the map. then apply it. this way that can be anything. it can be a much fancier algorithm. and its all organized.
+							</aside>
+					</section>
 				</section>
-			</section>
 
 			<!-- Sassy Shapes Mixin -->
 			<section>
 				<section>
 					<h1>Sassy Shapes</h1>
+				</section>
+
+				<section>
+					<aside class="notes">
+						Remember this CSS Tricks article? It was a huge deal. CSS Shapes! Gah! And it became this huge thing to try to recreate them all in as few divs as possible
+					</aside>
 				</section>
 
 				<section>
@@ -119,6 +386,10 @@
 
 				<section>
 					Bringing Art Into It
+				</section>
+
+				<section>
+					Website of Things on Dribbble recreated in Codepen
 				</section>
 
 				<section>
@@ -189,6 +460,21 @@
 				</section>
 				<section>
 					invisible list
+				</section>
+			</section>
+
+			<!-- Spreading the Sass Love -->
+			<section>
+				<section>
+					<h1>Spread the Sass Love</h1>
+				</section>
+
+				<section>
+					<h1>It All Started with Emojis</h1>
+				</section>
+
+				<section>
+					Emoji image, then link to pen we started
 				</section>
 			</section>
 
