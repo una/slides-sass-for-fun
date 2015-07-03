@@ -44,7 +44,7 @@
 			<div class="slides">
 				<section>
 					<h1>Sass for Fun:</h1>
-					<h3 class="fragment">The Hidden Programming</h3>
+					<h3 class="fragment">Stories and Lessons</h3>
 					<p>
 						<small>By <a href="http://unakravets.com">Una Kravets</a> / <a href="http://twitter.com/una">@una</a></small>
 					</p>
@@ -77,8 +77,9 @@
 					<section>
 						<img src="img/color-scheme.png" alt="">
 						<aside class="notes">
-							- what is contrasted (Jackie Balzar talk on writing an entire weather app with Sass)
-							@each loop and on-the-fly color guides --> style guides were a thing
+							- compass contrasted()
+							- (Jackie Balzar talk on writing an entire weather app with Sass)
+							- @each loop and on-the-fly color guides --> style guides were a thing
 						</asides>
 					</section>
 
@@ -90,15 +91,16 @@
 					</section>
 
 					<section>
-						<p data-height="517" data-theme-id="5255" data-slug-hash="oXgRYz" data-default-tab="result" data-user="unax3" class='codepen'>See the Pen <a href='http://codepen.io/unax3/pen/oXgRYz/'>Contrasted()</a> by Una Kravets (<a href='http://codepen.io/unax3'>@unax3</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
-<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
-						<aside class="notes"></aside>
-					</section>
-
-					<section>
 						<h1>Recreating contrasted()</h1>
 							<aside class="notes"> The first thing we can do is take a look at all of the functions Sass offers us for color
 							</aside>
+					</section>
+
+
+					<section>
+						<p data-height="517" data-theme-id="5255" data-slug-hash="oXgRYz" data-default-tab="result" data-user="unax3" class='codepen'>See the Pen <a href='http://codepen.io/unax3/pen/oXgRYz/'>Contrasted()</a> by Una Kravets (<a href='http://codepen.io/unax3'>@unax3</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+						<aside class="notes"></aside>
 					</section>
 
 					<section>
@@ -371,6 +373,7 @@
 				</section>
 
 				<section>
+          <img src="img/csstricksarticle.png" alt="">
 					<aside class="notes">
 						Remember this CSS Tricks article? It was a huge deal. CSS Shapes! Gah! And it became this huge thing to try to recreate them all in as few divs as possible
 					</aside>
@@ -382,7 +385,7 @@
 				</section>
 
 				<section>
-					<pre><code>@mixin shape($shape, $size, $color){
+<pre><code>@mixin shape($shape, $size, $color){
 	@if $shape == square {
 		width: $size;
 		height: $size;
@@ -414,9 +417,32 @@
 }</code></pre>
 				</section>
 
+        <section>
+          <code>@include shape(pentagon, 50px, $color7)</code>
+        </section>
+
 				<section>
-					Dog CodePen
+					<p data-height="481" data-theme-id="5255" data-slug-hash="ujLCs" data-default-tab="result" data-user="una" class='codepen'>See the Pen <a href='http://codepen.io/una/pen/ujLCs/'>Sassy CSS Puppy</a> by Una Kravets (<a href='http://codepen.io/una'>@una</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+<aside class="notes">putting it together & hover :)</aside>
 				</section>
+
+        <section>
+          <pre><code>%freckles {
+  @include shape(circle, 15px, $darkbrown);
+  margin-top: 285px;
+  &:before {
+    @include shape(circle, 15px, $darkbrown);
+    content: "";
+    margin: -20px 15px;
+  }
+  &:after{
+    @include shape(circle, 15px, $darkbrown);
+    content: "";
+    margin: -20px -15px;
+  }
+}</code></pre>
+        </section>
 
 				<section>
 					Bringing Art Into It
@@ -430,8 +456,12 @@
 					<img src="img/givengoexample.png" alt="">
 				</section>
 
+        <section>
+          <img src="img/adobecreativejam.png" alt="">
+        </section>
+
 				<section>
-					<img src="img/adobecreativejam.png" alt="">
+					<img src="img/tywilkins.png" alt="">
 				</section>
 
 				<section>
@@ -445,8 +475,13 @@
 				</section>
 
 				<section>
-					Pixel Art Codepen Inspiration
+				  <blockquote style="font-size: 1.8em; line-height: normal; width: 80%;}">Innovation is taking two things that already exist and putting them together in a new way.<br><br><footer>-Tom Freston</footer></blockquote>
 				</section>
+
+				 <section>
+          <img src="img/cross-stitch.png" alt="">
+          <a href="http://codepen.io/jackarmley/pen/LohqG">Codepen Link</a>
+        </section>
 			</section>
 
 			<!-- Sass Pixel Art -->
@@ -456,7 +491,7 @@
 				</section>
 
 				<section>
-					This section covers:
+					<h2>This section covers:</h2>
 					<ul>
 						<li>box-shadows</li>
 						<li>faux-matrices</li>
@@ -467,7 +502,7 @@
 
 				<section>
 					<h2>Warning: Do Not Try This at Home</h2>
-					-- gif of explosion or fire --
+					<img class="fragment" style="width: 50%" src="img/explosion.gif" alt="">
 					<aside class="notes"></aside>
 				</section>
 
@@ -521,9 +556,149 @@
 					<h1>It All Started with Emojis</h1>
 				</section>
 
+        <section>
+          <img src="img/emojis.gif" alt="">
+        </section>
+
 				<section>
-					Emoji image, then link to pen we started
+					<img src="img/coded-emojis.gif" alt="">
 				</section>
+
+        <section>
+          <img src="img/docs2.png" alt="">
+          <aside class="notes">the point is you never know where its going to lead you, when you experiment, you never know what you're going to learn or get back in return</aside>
+        </section>
+
+			</section>
+
+			<!-- Sass Director -->
+			<section>
+				<section>
+					<h1>Sass but not Sass</h1>
+				</section>
+
+				<section>
+					<h1>Sass Director</h1>
+					<aside class="notes">playing with learning JS</aside>
+				</section>
+
+        <section>
+          <img src="img/sassdirector.png" alt="">
+        </section>
+
+        <section>
+          <img src="img/sassdirector-demo.gif" alt="">
+        </section>
+
+        <section>
+          <h2>Sass Director -- Input Manifest</h2>
+          <pre><code>@import "utils/variables";
+@import "utils/functions";
+@import "utils/mixins";
+@import "utils/placeholders";
+
+@import "base/reset";
+@import "base/typography";
+
+@import "layout/navigation";
+@import "layout/grid";
+@import "layout/header";
+@import "layout/footer";
+@import "layout/sidebar";
+@import "layout/forms";
+
+@import "components/buttons";
+@import "components/carousel";
+@import "components/cover";
+@import "components/dropdown";
+
+@import "pages/home";
+@import "pages/contact";
+
+@import "themes/theme";
+@import "themes/admin";</code></pre>
+        </section>
+
+        <section>
+          <h2>Sass Director -- Output Shell</h2>
+          <pre><code>mkdir utils;cd utils;touch _variables.scss;touch _functions.scss;touch _mixins.scss;touch _placeholders.scss;cd ../;mkdir base;cd base;touch _reset.scss;touch _typography.scss;cd ../;mkdir layout;cd layout;touch _navigation.scss;touch _grid.scss;touch _header.scss;touch _footer.scss;touch _sidebar.scss;touch _forms.scss;cd ../;mkdir components;cd components;touch _buttons.scss;touch _carousel.scss;touch _cover.scss;touch _dropdown.scss;cd ../;mkdir pages;cd pages;touch _home.scss;touch _contact.scss;cd ../;mkdir themes;cd themes;touch _theme.scss;touch _admin.scss;cd ../;cd ../;</code></pre>
+        </section>
+
+        <section>
+        <h2>Sass Organization as Step 1</h2>
+        <pre><code>// Base styles -- these output no code
+@import 'base/reset';
+@import 'base/vars/color';
+@import 'base/vars/grid';
+@import 'base/vars/type';
+@import 'base/helpers/mixins';
+@import 'base/helpers/functions';
+@import 'base/helpers/extends';
+
+// Layout elements affecting the page
+@import 'theme/grid';
+@import 'theme/color';
+@import 'theme/type';
+
+// Regions of your page -- repeated & modular
+@import 'regions/nav';
+@import 'regions/header';
+@import 'regions/footer';
+@import 'regions/sidebar';
+
+// Modules -- elements that are repeated
+@import 'modules/buttons';
+
+// Components -- compound modules
+@import 'components/forms';
+
+// Unique pages -- Views that aren't reused
+@import 'pages/home';
+@import 'pages/contact';
+
+// Everyone messes up sometimes -- here's the to-do that didn't quiet have a spot yet
+@import 'to-do';</code></pre>
+        </section>
+
+        <section>
+          sublime plugin
+        </section>
+
+        <section>
+          atom plugin
+        </section>
+
+				<section>
+					npm module
+				</section>
+
+				<section>
+					<h1>"SassMe CLI"</h1>
+					<aside class="notes">node CLI</aside>
+				</section>
+
+				<section>
+					SassMe Demo
+				</section>
+
+				<section>
+					<h1>Open Source All the Things</h1>
+				</section>
+			</section>
+
+			<section>
+				<h1>In Review:</h1>
+				<ul>
+					<li class="fragment">Make things on the side</li>
+					<li class="fragment">You'll have fun</li>
+					<li class="fragment">You'll learn more than you expect</li>
+					<li class="fragment">Share your knowledge</li>
+					<li class="fragment">Play, practice, repeat</li>
+				</ul>
+			</section>
+
+			<section>
+				<h1>Thank You!</h1>
 			</section>
 
 		</div>
