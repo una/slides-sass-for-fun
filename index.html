@@ -487,7 +487,7 @@
 				</section>
 
 				<section>
-					<img src="img/pixels.png" alt="">
+					<a href="http://codepen.io/una/pen/oXXRgg"><img src="img/pixels.png" alt=""></a>
 				</section>
 
 				<section>
@@ -576,14 +576,267 @@
 
 				<section>
 					<img src="img/pixels3.png" alt="">
+					<aside class="notes">this is just a space separated list of values</aside>
 				</section>
+
+								<section>
+					<h1>Let's Play with Lists!</h1>
+				</section>
+
+				<section>
+					<img src="img/list-functions.png" alt="">
+				</section>
+
+				<section>
+				<h2>pixelize()</h2>
+				<ol>
+					<li>Determine size/color of the pixels</li>
+					<li class="fragment">Create empty list to be filled with incoming box shadow data</li>
+					<li class="fragment">Itemize each row to set a y-value (vertical position in the matrix grid)</li>
+					<li class="fragment">Read the n-value (horizontal position in the list) to determine it's x-value</li>
+					<li class="fragment">Determine the y-value of that pixel based on its row</li>
+					<li class="fragment">Read the actual letter (content-value) to determine the color of the pixel
+					<li class="fragment">Append determined values to box-shadow list, ending with ","</li>
+					<li class="fragment">Loop through steps 4-7 for the entire matrix grid</li>
+					</ol>
+				</section>
+
+				<section>
+				<h2>pixelize()</h2>
+					<pre><code>@function pixelize($matrix, $size: 10px, $color: hotpink) {
+  // length of the entire matrix
+  $l: length($matrix);
+  // shadows list we will be outputting
+  $shadows: '';
+  // length of an individual line on a matrix
+  $i: $l;
+
+// read through the all the rows of the list
+  @for $i from 1 through $l {
+    // this is a single row
+    $row: nth($matrix, $i);
+
+    @for $j from 1 through length($row){
+        //itemize each element in that row
+        $item: nth($row, $j);
+
+// if that item is an x, give it a drop shadow
+// square w/background color
+// (this is where we're building the shadows list)
+  @if $item == x{
+    $shadows:  $shadows + ($j*$size) + ' ' + ($i*$size) + ' ' + $color;
+  } @else{
+    $shadows:  $shadows + ($j*$size) + ' ' + ($i*$size) + ' ' + transparent;
+  }
+
+// when you get to the end of the row,
+// add a comma before the next block of drop shadows
+      @if not ($j == length($row) and $i == $l) {
+        $shadows: $shadows + ',';
+      }
+    }
+  }
+
+// return the entire shadow list here
+  @return unquote($shadows);
+}</code></pre>
+				</section>
+
+				<section>
+					<pre>
+<code>10px 10px transparent,20px 10px transparent,30px 10px hotpink,40px 10px transparent,50px 10px transparent,10px 20px transparent,20px 20px hotpink,30px 20px transparent,40px 20px hotpink,50px 20px transparent,10px 30px hotpink,20px 30px transparent,30px 30px transparent,40px 30px transparent,50px 30px hotpink,10px 40px transparent,20px 40px hotpink,30px 40px transparent,40px 40px hotpink,50px 40px transparent,10px 50px transparent,20px 50px transparent,30px 50px hotpink,40px 50px transparent,50px 50px transparent</code></pre>
+					<aside class="notes">this is what our box-shadow output looks like</aside>
+				</section>
+
+				<section><pre>
+						<code>// top row
+10px 10px transparent,
+20px 10px transparent,
+30px 10px hotpink,
+40px 10px transparent,
+50px 10px transparent,
+
+//second row
+10px 20px transparent,
+20px 20px hotpink,
+30px 20px transparent,
+40px 20px hotpink,
+50px 20px transparent,
+
+// 3rd row
+10px 30px hotpink,
+20px 30px transparent,
+30px 30px transparent,
+40px 30px transparent,
+50px 30px hotpink,
+
+// 4th row
+10px 40px transparent,
+20px 40px hotpink,
+30px 40px transparent,
+40px 40px hotpink,
+50px 40px transparent,
+
+//bottom row
+10px 50px transparent,
+20px 50px transparent,
+30px 50px hotpink,
+40px 50px transparent,
+50px 50px transparent;</code>
+					</pre>
+					<aside class="notes">makes more sense when its broken out a little bit</aside></section>
+
+				<!-- mushroom: -->
 
 				<section>
 					<img src="img/pixels4.png" alt="">
 				</section>
 
 				<section>
+					<h1>Color Mapping</h1>
+				</section>
+
+				<section>
+				<pre><code>mushroom: (
+  (o o o o o k k k k k k o o o o o)
+  (o o o k k r r r r w w k k o o o)
+  (o o k w w r r r r w w w w k o o)
+  (o k w w r r r r r r w w w w k o)
+  (o k w r r w w w w r r w w w k o)
+  (k r r r w w w w w w r r r r r k)
+  (k r r r w w w w w w r r w w r k)
+  (k w r r w w w w w w r w w w w k)
+  (k w w r r w w w w r r w w w w k)
+  (k w w r r r r r r r r r w w r k)
+  (k w r r k k k k k k k k r r r k)
+  (o k k k w w k w w k w w k k k o)
+  (o o k w w w k w w k w w w k o o)
+  (o o k w w w w w w w w w w k o o)
+  (o o o k w w w w w w w w k o o o)
+  (o o o o k k k k k k k k o o o o)
+)</code></pre>
+				</section>
+
+			<section>
+					<pre><code>@if $item == w{
+  $sh:  $sh + ($j*$size) + ' ' + ($i*$size) + ' ' + white;
+}
+@if $item == k {
+  $sh:  $sh + ($j*$size) + ' ' + ($i*$size) + ' ' + black;
+}
+@if $item == r {
+  $sh:  $sh + ($j*$size) + ' ' + ($i*$size) + ' ' + red;
+}
+@if $item == o {
+  $sh:  $sh + ($j*$size) + ' ' + ($i*$size) + ' ' + transparent;
+}</code></pre><aside class="notes">Now, when we read the lines, we want to adjust for each of these colors:</aside>
+				</section>
+
+				<section>
+					<pre><code>$pixel-color-map: (
+  'r' : #f00,
+  'w': #fff,
+  'k': #000,
+  'o': transparent
+);</code></pre> <aside class="notes">We can make this a little neater with a map</aside>
+				</section>
+
+				<section><pre><code>@if $item == 'w' {
+  $sh:  $sh + ($j*$size) + ' ' + ($i*$size) + ' ' + map-get($pixel-color-map, 'w');
+}
+@if $item == 'k' {
+  $sh:  $sh + ($j*$size) + ' ' + ($i*$size) + ' ' + map-get($pixel-color-map, 'k');
+}
+@if $item == 'r' {
+  $sh:  $sh + ($j*$size) + ' ' + ($i*$size) + ' ' + map-get($pixel-color-map, 'r');
+}
+@if $item == 'o' {
+  $sh:  $sh + ($j*$size) + ' ' + ($i*$size) + ' ' + map-get($pixel-color-map, 'o');
+}</code></pre>
+					<aside class="notes">Using the map in our mixin</aside>
+				</section>
+
+				<section>
+					<h2>Error Proofing</h2>
+					<br>
+					<h4>Existing Value?</h4>
+					<pre><code>@if map-has-key($pixel-color-map, $item) {
+  $sh:  $sh + ($j*$size) + ' ' + ($i*$size) + ' ' + map-get($pixel-color-map, $item);
+}</code></pre>
+<br>
+<div class="fragment">
+<h4>Add @warn </h4>
+					<pre><code>@if map-has-key($pixel-color-map, $item) {
+  $sh:  $sh + ($j*$size) + ' ' + ($i*$size) + ' ' + map-get($pixel-color-map, $item);
+} @else {
+  @warn 'there is no color specified in "$pixel-color-map" for: "#{$item}"';
+}</code></pre></div>
+<aside class="notes"><li>Let's check to see if our value exists in our map, and then sync it up with it's matching value<li>@warn safeguard checks if the color exists in the map</li></aside>
+				</section>
+
+				<section>
 					<img src="img/pixels5.png" alt="">
+				</section>
+
+				<section>
+					<pre><code>$pixel-art:(
+  mushroom: (
+    (o o o o o k k k k k k o o o o o)
+    (o o o k k r r r r w w k k o o o)
+    (o o k w w r r r r w w w w k o o)
+    (o k w w r r r r r r w w w w k o)
+    (o k w r r w w w w r r w w w k o)
+    (k r r r w w w w w w r r r r r k)
+    (k r r r w w w w w w r r w w r k)
+    (k w r r w w w w w w r w w w w k)
+    (k w w r r w w w w r r w w w w k)
+    (k w w r r r r r r r r r w w r k)
+    (k w r r k k k k k k k k r r r k)
+    (o k k k w w k w w k w w k k k o)
+    (o o k w w w k w w k w w w k o o)
+    (o o k w w w w w w w w w w k o o)
+    (o o o k w w w w w w w w k o o o)
+    (o o o o k k k k k k k k o o o o)
+  ),
+
+  mario: (
+    (o o o r r r r r r o o o o)
+    (o o r r r r r r r r r r o)
+    (o o t t t p p p k p o o o)
+    (o t p t p p p p k p p p o)
+    (o t p t t p p p p k p p p)
+    (o t t p p p p p k k k k o)
+    (o o o p p p p p p p p o o)
+    (o o r r b r r r r o o o o)
+    (o r r r b r r b r r r r o)
+    (r r r r b b b b r r r r o)
+    (p p r b y b b y b r p p o)
+    (p p p b b b b b b p p p o)
+    (p p b b b b b b b b p p o)
+    (o o b b b o o b b b o o o)
+    (o t t t o o o o t t t o o)
+    (t t t t o o o o t t t t o)
+  ),
+  star: (
+    (o o o o o o o k k o o o o o o o)
+    (o o o o o o k y y k o o o o o o)
+    (o o o o o o k y y k o o o o o o)
+    (o o o o o k y y y y k o o o o o)
+    (k k k k k k y y y y k k k k k k)
+    (k y y y y y y y y y y y y y y k)
+    (o k y y y y k y y k y y y y k o)
+    (o o k y y y k y y k y y y k o o)
+    (o o o k y y k y y k y y k o o o)
+    (o o o k y y y y y y y y k o o o)
+    (o o k y y y y y y y y y y k o o)
+    (o o k y y y y y y y y y y k o o)
+    (o k y y y y y k k y y y y y k o)
+    (o k y y y k k o o k k y y y k o)
+    (k y y k k o o o o o o k k y y k)
+    (k k k o o o o o o o o o o k k k)
+  )
+);</code></pre>
+<aside class="notes">all of the 3 characters within a map structure</aside>
 				</section>
 
 				<section>
@@ -760,14 +1013,6 @@
 
 				<section>
 					<img src="img/sassdirnpm.png" alt="">
-				</section>
-
-				<section>
-					<h1>"SassMe CLI"</h1>
-					<aside class="notes">node CLI</aside>
-				</section>
-
-				<section><img src="img/sassme-screen.png" alt="">
 				</section>
 
 				<section>
