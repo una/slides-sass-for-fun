@@ -83,6 +83,11 @@
 						</asides>
 					</section>
 
+          <section>
+            <h1>LibSass</h1>
+            <aside class="notes">Libsass much faster than Ruby Sass, but doesn't work w/Compass</aside>
+          </section>
+
 					<section>
 						<img src="img/speedracer.png" alt="">
 						<aside class="notes">
@@ -857,15 +862,42 @@
 				</section>
 
 				<section>
-					--image of tweet for ana's fork --
+        <h2><code>and $item !='o'</code></h2>
+					<pre><code>@function pixelize($matrix, $size){
+    $l: length($matrix); // length of the entire
+    $sh: (); // shadows list
+    $i: $l; // length of the line
+
+    // read through the length of the matrix and decide on the box shadow color and position
+    @for $i from 1 through $l{
+      $row: nth($matrix,$i); //
+
+      @for $j from 1 through length($row){
+          $item: nth($row,$j);
+
+          @if map-has-key($pixel-color-map, $item) and $item !='o' {
+            $sh:  $sh, ($j*$size) ($i*$size) map-get($pixel-color-map, $item);
+          } @else {
+            @warn 'there is no color specified in "$pixel-color-map" for: "#{$item}"';
+          }
+
+
+      }
+    }
+
+    @return unquote($sh);
+}</code></pre>
 					<aside class="notes">
 						Ana Tudor's solution bc we don't need transparent pixels
 					</aside>
 				</section>
+
+        <section>
+        <a href="http://codepen.io/thebabydino/pen/KppLdR"><img src="img/pixels-codepen.png" alt=""></a></section>
 			</section>
 
 			<!-- Animations and invisible lists -->
-			<section>
+			<!-- <section>
 				<section>
 					Creating Animation loops
 				</section>
@@ -888,7 +920,7 @@
 					invisible list
 				</section>
 			</section>
-
+ -->
 			<!-- Spreading the Sass Love -->
 			<section>
 				<section>
@@ -910,6 +942,28 @@
         <section>
           <img src="img/docs2.png" alt="">
           <aside class="notes">the point is you never know where its going to lead you, when you experiment, you never know what you're going to learn or get back in return</aside>
+        </section>
+
+        <section>
+          <h1>More Sass for Fun Inspiration</h1>
+        </section>
+
+        <section>
+          <p data-height="509" data-theme-id="5255" data-slug-hash="LVyRdK" data-default-tab="result" data-user="ThisIsJohnBrown" class='codepen'>See the Pen <a href='http://codepen.io/ThisIsJohnBrown/pen/LVyRdK/'>Day 082: As A Shoe, I Agree</a> by John Brown (<a href='http://codepen.io/ThisIsJohnBrown'>@ThisIsJohnBrown</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+        </section>
+
+        <section>
+          <p data-height="539" data-theme-id="5255" data-slug-hash="DKaLo" data-default-tab="result" data-user="thebabydino" class='codepen'>See the Pen <a href='http://codepen.io/thebabydino/pen/DKaLo/'>Pure CSS pentagonal torus (animated)</a> by Ana Tudor (<a href='http://codepen.io/thebabydino'>@thebabydino</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+        </section>
+
+        <section>
+          <h1>Codepen Creative Challenges</h1>
+        </section>
+
+        <section>
+        <img src="img/cows.png" alt="">
         </section>
 
 			</section>
@@ -968,7 +1022,7 @@
         </section>
 
         <section>
-        <h2>Sass Organization as Step 1</h2>
+        <h2>Organization-Driven Development</h2>
         <pre><code>// Base styles -- these output no code
 @import 'base/reset';
 @import 'base/vars/color';
